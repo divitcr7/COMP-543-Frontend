@@ -1,7 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 function Shorten() {
+    const [longUrl, setLongUrl] = useState('');
+    const [userId, setUserId] = useState('0');
+    const [shortUrl, setShortUrl] = useState('');
+
+    const API_HOST = process.env.REACT_APP_API_HOST;
+
+    const shortenUrl = async() => {
+        const requestUrl = `${API_HOST}/shorten`;
+    
+        try {
+            const response = await axios.post(requestUrl, {
+                longUrl: longUrl,
+            });
+    
+            console.log('Shortened URL:', response.data);
+            // Adjust as needed if your API response structure is different
+            setShortUrl(response.data);
+        } catch (error) {
+            console.error('Error shortening URL:', error);
+            // Handle errors here, such as updating the UI to show the error
+        }
+    };
+    
+    const saveUrl = async () => {
+        const requestUrl = `${API_HOST}/save`;
+    
+        try {
+            const response = await axios.post(requestUrl, {
+                shortUrlKey: shortUrl,
+                longUrl: longUrl,
+                userId: userId,
+            });
+    
+            console.log('Saved URL:', response.data);
+            // Handle successful save, adjust according to your API response structure
+        } catch (error) {
+            console.error('Error saving URL:', error);
+            // Handle errors here, such as updating the UI to show the error
+        }
+    };
+
 return (
     <div className='bg-[#e7e9f9] w-100vh justify-center items-center'>
         <div className='w-screen flex justify-center pt-10' >
@@ -22,16 +64,16 @@ return (
                 </div>
 
                 <div className = 'flex justify-between'>
-                    <input type='text' className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 mb-1.5 w-7/12'></input>
-                    <button className='text-white text-left rounded-lg bg-[#4e60ff] p-2 h-16  mb-2 z-5 shadow-xl shadow-slate-400 w-2/6'>+ click to shorten</button>
+                    <input value={longUrl} onChange={(e) => setLongUrl(e.target.value)} type='text' className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 mb-1.5 w-7/12'></input>
+                    <button onClick={shortenUrl} className='text-white text-left rounded-lg bg-[#4e60ff] p-2 h-16  mb-2 z-5 shadow-xl shadow-slate-400 w-2/6'>+ click to shorten</button>
                 </div>
                 
                 <div className = 'flex justify-between'>
-                    <input type='text' className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12'></input>
-                    <button className='text-white text-left rounded-lg bg-[#4e60ff] p-2  h-16  z-5 shadow-md shadow-slate-400 w-2/6'>+ Add to List</button>
+                    <input value={`short.ly/${shortUrl}`} type='text' className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12'></input>
+                    <button onClick={saveUrl} className='text-white text-left rounded-lg bg-[#4e60ff] p-2  h-16  z-5 shadow-md shadow-slate-400 w-2/6'>+ Save</button>
                 </div>
 
-                <button className = 'w-full border-[2px] border-[#ff4e4e] mt-10 h-16 rounded-lg text-[#ff4e4e]'> Save </button>
+                {/* <button className = 'w-full border-[2px] border-[#ff4e4e] mt-10 h-16 rounded-lg text-[#ff4e4e]'> Save </button> */}
                 
                 <div className = 'flex justify-around m-10'>
                     <button className = 'text-white bg-[#4e60ff] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'>Go Pro</button>
