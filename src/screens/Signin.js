@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import * as path from "path";
 
 function Signin() {
     const [email, setEmail] = useState('');
@@ -17,6 +18,12 @@ function Signin() {
         });
 
         if (response.ok) {
+            // If login is successful, redirect to the home page
+            const data = await response.json();
+            console.log(data);
+            // Save the session ID in a cookie
+            document.cookie = `token=${data.sessionId}; path: '/'`;
+
             // If login is successful, redirect to the home page
             navigate('/home');
         } else {
