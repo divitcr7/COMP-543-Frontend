@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import * as path from "path";
+
+// import * as path from "path";
 
 function Signin() {
     const [email, setEmail] = useState('');
@@ -15,20 +16,30 @@ function Signin() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({email: email, password: password}),
+            credentials: 'include',
         });
 
         if (response.ok) {
-            // If login is successful, redirect to the home page
-            const data = await response.json();
-            console.log(data);
-            // Save the session ID in a cookie
-            document.cookie = `token=${data.sessionId}; path: '/'`;
-
             // If login is successful, redirect to the home page
             navigate('/home');
         } else {
             // If login is not successful, show an alert
             alert('Invalid login credentials');
+        }
+    };
+
+    const handleLogout = async () => {
+        const response = await fetch('/logout', {
+            method: 'POST',
+        });
+        if (response.ok) {
+            // Delete the session ID cookie
+            document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            // Handle logout success, redirect to the login page
+            navigate('/');
+        } else {
+            // Handle logout failure
+            alert('Logout failed')
         }
     };
 
