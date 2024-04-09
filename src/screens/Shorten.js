@@ -79,15 +79,10 @@ function Shorten() {
                         </button>
                     </div>
 
-                    {shortUrl && (
-                        <div className='mt-4 text-center'>
-                            Shortened URL: <a href={shortUrl}>{shortUrl}</a>
-                        </div>
-                    )}
-
                     <div className='flex justify-between'>
                         <input type='text'
-                               className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12'></input>
+                               className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12' value={shortUrl}>
+                        </input>
                         <button
                             className='text-white text-left rounded-lg bg-[#4e60ff] p-2  h-16  z-5 shadow-md shadow-slate-400 w-2/6'>Add
                             to List
