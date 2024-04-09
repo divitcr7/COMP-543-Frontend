@@ -1,13 +1,14 @@
-import {Route,Routes} from 'react-router-dom';
-
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Signin from './screens/Signin';
 import Registration from './screens/Registration';
 import Shorten from './screens/Shorten';
 import Account from './screens/Account';
 import Home from './screens/Home';
-import Urls from './screens/Urls'
-import Shortened from './screens/Shortened'
+import Urls from './screens/Urls';
+import Shortened from './screens/Shortened';
 
 
 function App() {
@@ -15,12 +16,31 @@ function App() {
     <Routes>
       <Route path = '/' element = {< Signin/>} />
       <Route path = '/registration' element = {<Registration/>} />
-      <Route path = '/shorten' element = {< Shorten/>} />
-      <Route path = '/home' element = {< Home/>} />
-      <Route path = '/urls' element = {< Urls/>} />
-      <Route path = '/shortened' element = {< Shortened/>} />
-      <Route path = '/account' element = {< Account/>} />
-      
+        <Route path="/shorten" element={
+            <ProtectedRoute>
+                <Shorten />
+            </ProtectedRoute>}
+        />
+        <Route path="/home" element={
+            <ProtectedRoute>
+                <Home />
+            </ProtectedRoute>}
+        />
+        <Route path="/urls" element={
+            <ProtectedRoute>
+                <Urls />
+            </ProtectedRoute>}
+        />
+        <Route path="/shortened" element={
+            <ProtectedRoute>
+                <Shortened />
+            </ProtectedRoute>}
+        />
+        <Route path="/account" element={
+            <ProtectedRoute>
+                <Account />
+            </ProtectedRoute>}
+        />
       <Route />
       <Route />
     </Routes>

@@ -16,17 +16,19 @@ function Signin() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({email: email, password: password}),
-            credentials: 'include',
+            credentials: 'include', // Include credentials in the request
         });
 
         if (response.ok) {
-            // If login is successful, redirect to the home page
+            // Login successful, redirect to the home page
+            localStorage.setItem('isAuthenticated', 'true');
             navigate('/home');
         } else {
-            // If login is not successful, show an alert
+            // Login failed, show an alert
             alert('Invalid login credentials');
         }
     };
+
 
     const handleLogout = async () => {
         const response = await fetch('/logout', {
@@ -35,6 +37,7 @@ function Signin() {
         if (response.ok) {
             // Delete the session ID cookie
             document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            localStorage.removeItem('isAuthenticated');
             // Handle logout success, redirect to the login page
             navigate('/');
         } else {
