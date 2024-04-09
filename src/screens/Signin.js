@@ -22,6 +22,7 @@ function Signin() {
         if (response.ok) {
             // Login successful, redirect to the home page
             localStorage.setItem('isAuthenticated', 'true');
+            localStorage.setItem('userId', email);
             navigate('/home');
         } else {
             // Login failed, show an alert
@@ -38,6 +39,7 @@ function Signin() {
             // Delete the session ID cookie
             document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userId');
             // Handle logout success, redirect to the login page
             navigate('/');
         } else {
