@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom'
 function Shorten() {
 
     const [longUrl, setLongUrl] = useState('');
-    const [shortenedUrls, setShortenedUrls] = useState([]);
+    const [shortUrl, setShortUrl] = useState('');
 
     const handleShorten = async () => {
-        // Shorten the URL
+        // send a POST request to the server to shorten the URL
         const response = await fetch('http://localhost:8080/api/shorten', {
             method: 'POST',
             headers: {
@@ -16,16 +16,20 @@ function Shorten() {
             body: JSON.stringify({longUrl}),
         });
         if (response.ok) {
-            const shortUrl = await response.text();
-            setShortenedUrls(prevUrls => [...prevUrls, shortUrl]);// Clear the input field
+            const result = await response.text(); // get the shortened URL from the response
+            setShortUrl(result); // set the shortened URL in the state
         } else {
             alert('Failed to shorten URL');
         }
     };
 
-    const handleSave = async (shortUrl) => {
-        // Save the URL
-        // get the user ID from the local storage
+    const handleSave = async () => {
+        if (!shortUrl) {
+            alert('No shortened URL to save.');
+            return; // exit the function early if there is no shortened URL
+        }
+
+        // get the userId from the localStorage
         const userId = localStorage.getItem('userId');
         const response = await fetch('http://localhost:8080/api/save', {
             method: 'POST',
@@ -34,14 +38,10 @@ function Shorten() {
             },
             body: JSON.stringify({shortUrlKey: shortUrl, longUrl, userId}),
         });
-        if (!response.ok) {
-            // Show an alert if the URL failed to save
-            alert('Failed to save URL');
-        } else {
-            // Clear the input field
-            setLongUrl('');
-            // Show a success message
+        if (response.ok) {
             alert('URL saved successfully');
+        } else {
+            alert('Failed to save URL');
         }
     };
 
@@ -64,20 +64,26 @@ function Shorten() {
                         <div className='font-semibold text-lg'> Shorten URLs</div>
                     </div>
 
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between mt-10'>
                         <input
                             type='text'
                             value={longUrl}
                             onChange={(e) => setLongUrl(e.target.value)}
-                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 mb-1.5 w-7/12'
+                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12'
                         />
                         <button
                             onClick={handleShorten}
-                            className='text-white text-left rounded-lg bg-[#4e60ff] p-2 h-16 mb-2 z-5 shadow-xl shadow-slate-400 w-2/6'
+                            className='text-white rounded-lg bg-[#4e60ff] p-2 h-16 shadow-xl shadow-slate-400 w-2/6'
                         >
-                            click to shorten
+                            + click to shorten
                         </button>
                     </div>
+
+                    {shortUrl && (
+                        <div className='mt-4 text-center'>
+                            Shortened URL: <a href={shortUrl}>{shortUrl}</a>
+                        </div>
+                    )}
 
                     <div className='flex justify-between'>
                         <input type='text'
@@ -88,9 +94,14 @@ function Shorten() {
                         </button>
                     </div>
 
-                    <button
-                        className='w-full border-[2px] border-[#ff4e4e] mt-10 h-16 rounded-lg text-[#ff4e4e]'> Save
-                    </button>
+                    <div className='mt-4 text-center'>
+                        <button
+                            onClick={handleSave}
+                            className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
+                        >
+                            Save
+                        </button>
+                    </div>
 
                     <div className='flex justify-around m-10'>
                         <button className='text-white bg-[#4e60ff] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'>Go
