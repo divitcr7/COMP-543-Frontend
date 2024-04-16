@@ -6,7 +6,7 @@ function Shorten() {
     const [longUrl, setLongUrl] = useState('');
     const [shortUrl, setShortUrl] = useState('');
     const navigate = useNavigate();
-
+    
     const handleShorten = async () => {
         // send a POST request to the server to shorten the URL
         const response = await fetch('http://localhost:8080/api/shorten', {
@@ -65,129 +65,64 @@ function Shorten() {
     };
 
     return (
-        <div className='bg-[#e7e9f9] w-100vh justify-center items-center'>
-            {/* <div className='w-screen flex justify-center pt-10'>
-                <div className='text-red-500 text-3xl' style={{position: 'absolute', left: '20px'}}>
-                    Shortly
+        <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center pt-20'> 
+            <div className='flex flex-col items-center w-11/12 md:w-8/12 lg:w-5/12'>
+                <div className='font-semibold text-lg mb-6'>Shorten URLs</div>
+
+                <div className='w-4/5 flex flex-col md:flex-row items-center mb-4'>
+                    <input
+                        type='text'
+                        value={longUrl}
+                        onChange={(e) => setLongUrl(e.target.value)}
+                        className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 flex-grow mr-2'
+                        placeholder='Paste your long URL here'
+                    />
+                    <button
+                        onClick={handleShorten}
+                        className='text-white rounded-lg bg-[#4e60ff] p-2 h-16 shadow-xl shadow-slate-400 mt-4 md:mt-0'
+                    >
+                        Shorten
+                    </button>
                 </div>
 
-                <button className='bg-[#f3f4ff] w-40 h-[50px] rounded-lg flex items-center justify-evenly shadow-md'>
-                    <Link to='/URLs' className='text-blue-500'> Shortly.com</Link>
-                    <span className='text-red-500' style={{position: 'relative', left: '12px'}}> X </span>
-                </button>
-            </div> */}
-
-            <div className='w-screen flex items-center justify-center'>
-                <div className='flex-column w-5/12'>
-                    <div className='mt-20 flex justify-items-start w-80'>
-                        <div className='font-semibold text-lg'> Shorten URLs</div>
-                    </div>
-
-                    <div className='flex justify-between mt-10'>
-                        <input
-                            type='text'
-                            value={longUrl}
-                            onChange={(e) => setLongUrl(e.target.value)}
-                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12'
-                        />
-                        <button
-                            onClick={handleShorten}
-                            className='text-white rounded-lg bg-[#4e60ff] p-2 h-16 shadow-xl shadow-slate-400 w-2/6'
-                        >
-                            click to shorten
-                        </button>
-                    </div>
-
-                    <div className='flex justify-between'>
-                        <input type='text'
-                               className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 w-7/12' value={`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${shortUrl}`}>
-                        </input>
-                        <button
-                            className='text-white text-left rounded-lg bg-[#4e60ff] p-2  h-16  z-5 shadow-md shadow-slate-400 w-2/6'>Add
-                            to List
-                        </button>
-                    </div>
-
-                    <div className='mt-4 text-center'>
-                        <button
-                            onClick={handleSave}
-                            className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
-                        >
-                            Save
-                        </button>
-                    </div>
-                    <div className='mt-4 text-center'>
-                        <Link to="/all-urls">
-                            <button
-                                className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
-                            >
-                                All Shortened URLs
-                            </button>
-                        </Link>
-                    </div>
-                    {/* <div className='flex justify-around m-10'>
-                        <button className='text-white bg-[#4e60ff] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'>Go
-                            Pro
-                        </button>
-                        <Link to='/'>
-                            <button
-                                className='text-white bg-[#ff4e4e] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'> Login
-                            </button>
-                        </Link>
-                    </div> */}
-                    {/* <div className='flex justify-center font-semibold mt-1'>
-                        <button
-                            onClick={handleLogout}
-                            className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
-                        >
-                            Log Out
-                        </button>
-                    </div> */}
-
-                    {/* <div className='mt-20 flex justify-items-start w-80'>
-                        <div className='font-semibold text-lg'> Shortened URLs</div>
-                    </div> */}
-
-                    {/* <div className='bg-[#e7e9f9]'>
-                        <div className='w-full bg-[#f3f4ff] mt-10 h-16 rounded-lg flex items-center justify-between'>
-                            <a className='w-3/12 text-center text-blue-600' href='shortly/73es3g'> shortly/73es3g </a>
-                            <div
-                                className='truncate w-3/12'> asjhdfbaklsjehfbklauwefblkausebfnlkjasefbnilajsebfnilusebnflkwhaebfliauwhfliusehfiopuwehfiopesuh
-                            </div>
-                            <div className='w-1/12'> X</div>
+                <div className='w-full mb-4'>
+                    {shortUrl && (
+                        <div className='text-center text-lg font-semibold'>
+                            Shortened URL:
+                            <span className='text-blue-600 break-words'> 
+                                {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${shortUrl}`}
+                            </span>
                         </div>
-
-                        <div className='w-full mt-10 h-16 rounded-lg flex items-center justify-between'>
-                            <a className='w-3/12 text-center text-blue-600' href='shortly/73es3g'> shortly/73es3g </a>
-                            <div
-                                className='truncate w-3/12'> asjhdfbaklsjehfbklauwefblkausebfnlkjasefbnilajsebfnilusebnflkwhaebfliauwhfliusehfiopuwehfiopesuh
-                            </div>
-                            <div className='w-1/12'> X</div>
-                        </div>
-
-                        <div className='w-full bg-[#f3f4ff] mt-10 h-16 rounded-lg flex items-center justify-between'>
-                            <a className='w-3/12 text-center text-blue-600' href='shortly/73es3g'> shortly/73es3g </a>
-                            <div
-                                className='truncate w-3/12'> asjhdfbaklsjehfbklauwefblkausebfnlkjasefbnilajsebfnilusebnflkwhaebfliauwhfliusehfiopuwehfiopesuh
-                            </div>
-                            <div className='w-1/12'> X</div>
-                        </div>
-
-                        <div className='w-full mt-10 h-16 rounded-lg flex items-center justify-between'>
-                            <a className='w-3/12 text-center text-blue-600' href='shortly/73es3g'> shortly/73es3g </a>
-                            <div
-                                className='truncate w-3/12'> asjhdfbaklsjehfbklauwefblkausebfnlkjasefbnilajsebfnilusebnflkwhaebfliauwhfliusehfiopuwehfiopesuh
-                            </div>
-                            <div className='w-1/12'> X</div>
-                        </div>
-                    </div> */}
-
-
+                    )}
                 </div>
 
+                <div className='flex gap-4 mb-4 w-full'>
+                    <button
+                        onClick={handleSave}
+                        className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400 flex-grow'
+                    >
+                        Save
+                    </button>
+                    <button
+                        // Add functionality for 'Add to List' button as needed
+                        className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400 flex-grow'
+                    >
+                        Add to List
+                    </button>
+                </div>
+
+                <div className='w-full md:w-auto'>
+                    <Link to="/all-urls">
+                        <button
+                            className='text-white bg-[#4e60ff] h-14 rounded-lg px-10 md:px-4 shadow-xl shadow-slate-400'
+                        >
+                            All Shortened URLs
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default WithCommonButtons(Shorten);
