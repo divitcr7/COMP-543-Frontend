@@ -93,6 +93,12 @@ function Signin() {
                             Login
                         </button>
                     </div>
+
+                    <div className='my-10'>
+                        <button type='submit' className='text-white rounded-lg bg-[#595959] p-2 w-80 h-10'>
+                            Login as Guest
+                        </button>
+                    </div>
                 </form>
 
                 <div className='my-10'>
