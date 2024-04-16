@@ -66,7 +66,7 @@ function Shorten() {
 
     return (
         <div className='bg-[#e7e9f9] w-100vh justify-center items-center'>
-            <div className='w-screen flex justify-center pt-10'>
+            {/* <div className='w-screen flex justify-center pt-10'>
                 <div className='text-red-500 text-3xl' style={{position: 'absolute', left: '20px'}}>
                     Shortly
                 </div>
@@ -75,7 +75,7 @@ function Shorten() {
                     <Link to='/URLs' className='text-blue-500'> Shortly.com</Link>
                     <span className='text-red-500' style={{position: 'relative', left: '12px'}}> X </span>
                 </button>
-            </div>
+            </div> */}
 
             <div className='w-screen flex items-center justify-center'>
                 <div className='flex-column w-5/12'>
@@ -116,8 +116,16 @@ function Shorten() {
                             Save
                         </button>
                     </div>
-
-                    <div className='flex justify-around m-10'>
+                    <div className='mt-4 text-center'>
+                        <Link to="/all-urls">
+                            <button
+                                className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
+                            >
+                                All Shortened URLs
+                            </button>
+                        </Link>
+                    </div>
+                    {/* <div className='flex justify-around m-10'>
                         <button className='text-white bg-[#4e60ff] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'>Go
                             Pro
                         </button>
@@ -126,21 +134,21 @@ function Shorten() {
                                 className='text-white bg-[#ff4e4e] h-14 rounded-lg w-36 shadow-xl shadow-slate-400'> Login
                             </button>
                         </Link>
-                    </div>
-                    <div className='flex justify-center font-semibold mt-1'>
+                    </div> */}
+                    {/* <div className='flex justify-center font-semibold mt-1'>
                         <button
                             onClick={handleLogout}
                             className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400'
                         >
                             Log Out
                         </button>
-                    </div>
+                    </div> */}
 
-                    <div className='mt-20 flex justify-items-start w-80'>
+                    {/* <div className='mt-20 flex justify-items-start w-80'>
                         <div className='font-semibold text-lg'> Shortened URLs</div>
-                    </div>
+                    </div> */}
 
-                    <div className='bg-[#e7e9f9]'>
+                    {/* <div className='bg-[#e7e9f9]'>
                         <div className='w-full bg-[#f3f4ff] mt-10 h-16 rounded-lg flex items-center justify-between'>
                             <a className='w-3/12 text-center text-blue-600' href='shortly/73es3g'> shortly/73es3g </a>
                             <div
@@ -172,7 +180,7 @@ function Shorten() {
                             </div>
                             <div className='w-1/12'> X</div>
                         </div>
-                    </div>
+                    </div> */}
 
 
                 </div>

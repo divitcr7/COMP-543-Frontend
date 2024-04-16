@@ -5,23 +5,23 @@ const CommonButtons = ({ children }) => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        try {
-            const response = await fetch('/logout', {
-                method: 'POST',
-            });
-            if (response.ok) {
-                // Clear local storage or any other session identifiers
-                localStorage.removeItem('isAuthenticated');
-                localStorage.removeItem('userId');
-                // Redirect to login page
-                navigate('/');
-            } else {
-                alert('Logout failed');
-            }
-        } catch (error) {
-            console.error('Logout error:', error);
-            alert('Logout failed');
+        const response = await fetch('http://localhost:8080/api/logout', {
+            method: 'POST',
+        });
+        if (response.ok) {
+            // Delete the session ID cookie
+            document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userId');
+            // Handle logout success, redirect to the login page
+            navigate('/');
+        } else {
+            // Handle logout failure
+            alert('Logout failed')
         }
+    };
+    const navigateToProfile = () => {
+        navigate('/profile'); // Replace '/profile' with the path to your profile page
     };
 
     return (
@@ -35,17 +35,31 @@ const CommonButtons = ({ children }) => {
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}>
                 <div style={{ fontSize: '24px', color: '#5f6bcb' }}>Shortly</div>
-                <button onClick={handleLogout} style={{
-                    backgroundColor: '#4e60ff',
-                    color: 'white',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                }}>
-                    Logout
-                </button>
+                <div>
+                    <button onClick={navigateToProfile} style={{
+                        backgroundColor: '#4e60ff',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginRight: '10px', // Add space between the buttons
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}>
+                        Profile
+                    </button>
+                    <button onClick={handleLogout} style={{
+                        backgroundColor: '#4e60ff',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}>
+                        Logout
+                    </button>
+                </div>
             </header>
             <main style={{ padding: '20px' }}>
                 {children}

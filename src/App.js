@@ -9,8 +9,8 @@ import Account from './screens/Account';
 import Home from './screens/Home';
 import Urls from './screens/Urls';
 import Shortened from './screens/Shortened';
-
-
+import AllShortenedURLs from './screens/AllShortenedURLs';
+import Profile from './screens/Profile';
 function App() {
   return (
     <Routes>
@@ -39,6 +39,16 @@ function App() {
         <Route path="/account" element={
             <ProtectedRoute>
                 <Account />
+            </ProtectedRoute>}
+        />
+         <Route path="/all-urls" element={
+            <ProtectedRoute>
+                <AllShortenedURLs />
+            </ProtectedRoute>}
+        />
+        <Route path="/profile" element={
+            <ProtectedRoute>
+                <Profile />
             </ProtectedRoute>}
         />
       <Route />
