@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 // import * as path from "path";
 
@@ -7,6 +9,7 @@ function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -68,12 +71,21 @@ function Signin() {
 
                     <div className='flex-column mt-10'>
                         <div className='text-[#5f6bcb] mb-2 font-bold text-xl'>Password</div>
-                        <input
-                            type='password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 w-80 h-10'
-                        />
+                        <div className='flex items-center border-[#cfd0db] border-2 w-80 rounded-lg bg-[#e7e9f9]'>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className='flex-grow p-2 bg-transparent outline-none'
+                            />
+                            <button 
+                                type='button'
+                                onClick={() => setShowPassword(!showPassword)}
+                                className='p-2'
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </button>
+                        </div>
                     </div>
 
                     <div className='my-10'>
