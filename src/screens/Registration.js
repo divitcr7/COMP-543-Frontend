@@ -51,16 +51,6 @@ function Registration() {
                         ></input>
                     </div>
 
-                    {/* <div className='flex-column mt-10'>
-                        <div className='text-[#5f6bcb] mb-2 font-bold text-xl'>Password</div>
-                        <input
-                            type='password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 w-80 h-10'
-                        ></input>
-                    </div> */}
-
                     <div className='flex-column mt-10'>
                         <div className='text-[#5f6bcb] mb-2 font-bold text-xl'>Password</div>
                         <div className='flex items-center border-[#cfd0db] border-2 w-80 rounded-lg bg-[#e7e9f9]'>

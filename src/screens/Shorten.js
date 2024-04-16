@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-
+import WithCommonButtons from '../components/WithCommonButtons';
 function Shorten() {
 
     const [longUrl, setLongUrl] = useState('');
@@ -182,4 +182,4 @@ function Shorten() {
     )
 }
 
-export default Shorten
+export default WithCommonButtons(Shorten);
