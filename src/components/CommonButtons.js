@@ -1,9 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 const CommonButtons = ({ children }) => {
     const navigate = useNavigate();
+    const location = useLocation();
 
+    const goBack = () => {
+        navigate('/home'); 
+    };
     const handleLogout = async () => {
         const response = await fetch('http://localhost:8080/api/logout', {
             method: 'POST',
@@ -34,6 +38,20 @@ const CommonButtons = ({ children }) => {
                 backgroundColor: '#f3f4ff',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}>
+                {location.pathname !== '/home' && (
+                    <button onClick={goBack} style={{
+                        backgroundColor: '#4e60ff',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginRight: '10px',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}>
+                        Back
+                    </button>
+                )}
                 <div style={{ fontSize: '24px', color: '#5f6bcb' }}>Shortly</div>
                 <div>
                     <button onClick={navigateToProfile} style={{
@@ -43,8 +61,7 @@ const CommonButtons = ({ children }) => {
                         borderRadius: '8px',
                         border: 'none',
                         cursor: 'pointer',
-                        marginRight: '10px', // Add space between the buttons
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                        marginRight: '10px',
                     }}>
                         Profile
                     </button>
@@ -55,7 +72,6 @@ const CommonButtons = ({ children }) => {
                         borderRadius: '8px',
                         border: 'none',
                         cursor: 'pointer',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
                     }}>
                         Logout
                     </button>

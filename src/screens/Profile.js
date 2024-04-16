@@ -81,14 +81,14 @@ function ChangePassword() {
                             />
                         </div>
                     </div>
-                    <div className='flex justify-between'>
-                        <button 
+                    <div className='flex justify-center'>
+                        {/* <button 
                             type="button"
                             onClick={() => navigate(-1)}
                             className='text-white bg-[#4e60ff] h-10 rounded-lg px-4 shadow-md'
                         >
                             Back
-                        </button>
+                        </button> */}
                         <button 
                             type="submit"
                             className='text-white bg-[#4e60ff] h-10 rounded-lg px-4 shadow-md'
