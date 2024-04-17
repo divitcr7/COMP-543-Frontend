@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 // import * as path from "path";
 
@@ -24,8 +24,6 @@ function Signin() {
 
         if (response.ok) {
             // Login successful, redirect to the home page
-            localStorage.setItem('isAuthenticated', 'true');
-            localStorage.setItem('userId', email);
             navigate('/home');
         } else {
             // Login failed, show an alert
@@ -33,6 +31,26 @@ function Signin() {
         }
     };
 
+    function handleGuestLogin() {
+        const guestEmail = 'guest';
+        const guestPassword = Math.random().toString(36).slice(-8); // generate a random password
+
+        fetch('http://localhost:8080/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email: guestEmail, password: guestPassword}),
+            credentials: 'include', // include credentials in the request
+        })
+            .then(response => {
+                if (response.ok) {
+                    navigate('/home'); // redirect to the home page
+                } else {
+                    alert('Guest login failed');
+                }
+            });
+    }
 
     const handleLogout = async () => {
         const response = await fetch('/logout', {
@@ -78,12 +96,12 @@ function Signin() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 className='flex-grow p-2 bg-transparent outline-none'
                             />
-                            <button 
+                            <button
                                 type='button'
                                 onClick={() => setShowPassword(!showPassword)}
                                 className='p-2'
                             >
-                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye}/>
                             </button>
                         </div>
                     </div>
@@ -95,7 +113,7 @@ function Signin() {
                     </div>
 
                     <div className='my-10'>
-                        <button type='submit' className='text-white rounded-lg bg-[#595959] p-2 w-80 h-10'>
+                        <button onClick={handleGuestLogin} className='text-white rounded-lg bg-[#595959] p-2 w-80 h-10'>
                             Login as Guest
                         </button>
                     </div>
