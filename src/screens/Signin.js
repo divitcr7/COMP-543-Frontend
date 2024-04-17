@@ -107,7 +107,7 @@ function Signin() {
                     </div>
 
                     <div className='my-10'>
-                        <button type='submit' className='text-white rounded-lg bg-[#4e60ff] p-2 w-80 h-10'>
+                        <button onClick={handleLogin} className='text-white rounded-lg bg-[#4e60ff] p-2 w-80 h-10'>
                             Login
                         </button>
                     </div>
