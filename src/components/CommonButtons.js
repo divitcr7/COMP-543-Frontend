@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 const CommonButtons = ({ children }) => {
     const navigate = useNavigate();
@@ -8,24 +9,31 @@ const CommonButtons = ({ children }) => {
     const goBack = () => {
         navigate('/home'); 
     };
-    const handleLogout = async () => {
-        const response = await fetch('http://localhost:8080/api/logout', {
-            method: 'POST',
-        });
-        if (response.ok) {
-            // Delete the session ID cookie
-            document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            localStorage.removeItem('isAuthenticated');
-            localStorage.removeItem('userId');
-            // Handle logout success, redirect to the login page
-            navigate('/');
-        } else {
-            // Handle logout failure
-            alert('Logout failed')
-        }
-    };
+
     const navigateToProfile = () => {
         navigate('/profile'); // Replace '/profile' with the path to your profile page
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/logout', {
+                method: 'POST',
+                credentials: 'include',  // Ensure cookies are sent
+            });
+
+            if (response.ok) {
+                // Assume the server has successfully ended the session
+                // Now clear the client-side state
+                Cookies.remove('user'); // Adjust this depending on the actual cookie you need to remove
+                console.log("logout cookie:", Cookies.get("user"));
+                navigate('/'); // Redirect to login page or wherever appropriate
+            } else {
+                throw new Error('Failed to logout');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+            alert('Logout failed'); // Display a user-friendly error message
+        }
     };
 
     return (

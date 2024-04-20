@@ -1,13 +1,13 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRouteList from './components/ProtectedRouteList';
 
 import Signin from './screens/Signin';
 import Registration from './screens/Registration';
 import Shorten from './screens/Shorten';
 import Account from './screens/Account';
 import Home from './screens/Home';
-import Urls from './screens/Urls';
 import Shortened from './screens/Shortened';
 import AllShortenedURLs from './screens/AllShortenedURLs';
 import Profile from './screens/Profile';
@@ -26,11 +26,6 @@ function App() {
                 <Home />
             </ProtectedRoute>}
         />
-        <Route path="/urls" element={
-            <ProtectedRoute>
-                <Urls />
-            </ProtectedRoute>}
-        />
         <Route path="/shortened" element={
             <ProtectedRoute>
                 <Shortened />
@@ -42,9 +37,9 @@ function App() {
             </ProtectedRoute>}
         />
          <Route path="/all-urls" element={
-            <ProtectedRoute>
+            <ProtectedRouteList>
                 <AllShortenedURLs />
-            </ProtectedRoute>}
+            </ProtectedRouteList>}
         />
         <Route path="/profile" element={
             <ProtectedRoute>

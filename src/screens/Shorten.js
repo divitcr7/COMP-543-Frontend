@@ -1,79 +1,79 @@
-import React, {useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import WithCommonButtons from '../components/WithCommonButtons';
-function Shorten() {
+import Cookies from "js-cookie";
 
+function Shorten() {
     const [longUrl, setLongUrl] = useState('');
     const [shortUrl, setShortUrl] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [saveMessage, setSaveMessage] = useState('');
     const navigate = useNavigate();
-    
+
     const handleShorten = async () => {
-        // send a POST request to the server to shorten the URL
+        if (!longUrl.trim()) {
+            setErrorMessage('Please enter a URL to shorten.');
+            setShortUrl(''); // Ensure short URL is cleared when there is an input error
+            return;
+        }
+        setErrorMessage('');
+        setSaveMessage('');
+
         const response = await fetch('http://localhost:8080/api/shorten', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({longUrl}),
+            body: JSON.stringify({ longUrl }),
         });
         if (response.ok) {
-            const result = await response.text(); // get the shortened URL from the response
-            setShortUrl(result); // set the shortened URL in the state
+            const result = await response.text();
+            setShortUrl(result);
         } else {
             alert('Failed to shorten URL');
         }
     };
 
     const handleSave = async () => {
-        if (!shortUrl) {
-            alert('No shortened URL to save.');
-            return; // exit the function early if there is no shortened URL
+        if (!longUrl.trim()) {
+            setSaveMessage('Please enter a URL before saving.');
+            setShortUrl(''); // Clear short URL when there's no input to save
+            return;
         }
 
-        // get the userId from the localStorage
-        const userId = localStorage.getItem('userId');
-        console.log(userId);
+        if (!shortUrl) {
+            setSaveMessage('No shortened URL to save.');
+            return;
+        }
+
+        const userId = Cookies.get('user');
         const response = await fetch('http://localhost:8080/api/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({shortUrlKey: shortUrl, longUrl: longUrl, userId: userId}),
+            body: JSON.stringify({ shortUrlKey: shortUrl, longUrl: longUrl, userId: userId }),
         });
         if (response.ok) {
-            alert('URL saved successfully');
+            setSaveMessage('URL saved successfully');
+            // Clear inputs after successful save
+            setLongUrl('');
+            setShortUrl('');
         } else {
-            alert('Failed to save URL');
-        }
-    };
-
-    const handleLogout = async () => {
-        const response = await fetch('http://localhost:8080/api/logout', {
-            method: 'POST',
-        });
-        if (response.ok) {
-            // Delete the session ID cookie
-            document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            localStorage.removeItem('isAuthenticated');
-            localStorage.removeItem('userId');
-            // Handle logout success, redirect to the login page
-            navigate('/');
-        } else {
-            // Handle logout failure
-            alert('Logout failed')
+            setSaveMessage('Failed to save URL');
         }
     };
 
     return (
-        <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center pt-20'> 
+        <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center pt-20'>
             <div className='flex flex-col items-center w-11/12 md:w-8/12 lg:w-5/12'>
                 <div className='font-semibold text-lg mb-6'>Shorten URLs</div>
 
-                <div className='w-4/5 flex flex-col md:flex-row items-center mb-4'>
+                <div className='w-4/5 flex flex-col md:flex-row items-center mb-2'>
                     <input
                         type='text'
                         value={longUrl}
-                        onChange={(e) => setLongUrl(e.target.value)}
+                        onChange={(e) => { setLongUrl(e.target.value); setErrorMessage(''); setSaveMessage(''); }}
                         className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 h-16 flex-grow mr-2'
                         placeholder='Paste your long URL here'
                     />
@@ -84,12 +84,14 @@ function Shorten() {
                         Shorten
                     </button>
                 </div>
+                {errorMessage && <div className='text-red-500 text-sm mb-4'>{errorMessage}</div>}
+                {saveMessage && <div className='text-green-500 text-sm mb-4'>{saveMessage}</div>}
 
                 <div className='w-full mb-4'>
                     {shortUrl && (
                         <div className='text-center text-lg font-semibold'>
                             Shortened URL:
-                            <span className='text-blue-600 break-words'> 
+                            <span className='text-blue-600 break-words'>
                                 {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${shortUrl}`}
                             </span>
                         </div>
@@ -104,7 +106,6 @@ function Shorten() {
                         Save
                     </button>
                     <button
-                        // Add functionality for 'Add to List' button as needed
                         className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400 flex-grow'
                     >
                         Add to List

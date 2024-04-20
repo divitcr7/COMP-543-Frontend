@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import Cookies from "js-cookie";
 
 // import * as path from "path";
 
@@ -24,6 +25,7 @@ function Signin() {
 
         if (response.ok) {
             // Login successful, redirect to the home page
+            console.log("login success cookie", Cookies.get("user"))
             navigate('/home');
         } else {
             // Login failed, show an alert
@@ -31,25 +33,29 @@ function Signin() {
         }
     };
 
-    function handleGuestLogin() {
+    const handleGuestLogin = async () =>{
         const guestEmail = 'guest';
         const guestPassword = Math.random().toString(36).slice(-8); // generate a random password
 
-        fetch('http://localhost:8080/api/login', {
+        const response = await fetch('http://localhost:8080/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({email: guestEmail, password: guestPassword}),
             credentials: 'include', // include credentials in the request
-        })
-            .then(response => {
-                if (response.ok) {
-                    navigate('/home'); // redirect to the home page
-                } else {
-                    alert('Guest login failed');
-                }
-            });
+        });
+
+        console.log("guest login response:", response)
+
+        if (response.ok) {
+            // Login successful, redirect to the home page
+            console.log("guest login cookie", Cookies.get("user"))
+            navigate('/home');
+        } else {
+            // Login failed, show an alert
+            alert('Invalid login credentials');
+        }
     }
 
     const handleLogout = async () => {
@@ -107,13 +113,14 @@ function Signin() {
                     </div>
 
                     <div className='my-10'>
-                        <button onClick={handleLogin} className='text-white rounded-lg bg-[#4e60ff] p-2 w-80 h-10'>
+                        <button type="submit"
+                                className='text-white rounded-lg bg-[#4e60ff] p-2 w-80 h-10'>
                             Login
                         </button>
                     </div>
 
                     <div className='my-10'>
-                        <button onClick={handleGuestLogin} className='text-white rounded-lg bg-[#595959] p-2 w-80 h-10'>
+                        <button onClick={handleGuestLogin} type="button" className='text-white rounded-lg bg-[#595959] p-2 w-80 h-10'>
                             Login as Guest
                         </button>
                     </div>
