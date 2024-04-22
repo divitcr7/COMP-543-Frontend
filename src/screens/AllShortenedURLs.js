@@ -32,6 +32,8 @@ const AllShortenedUrls = () => {
             }
         };
 
+        console.log(shortenedUrls)
+
         fetchUrls().then(r => console.log("fetchUrls response:", r));
     }, []); // The empty array means this effect will only run once, similar to componentDidMount
 
@@ -60,7 +62,6 @@ const AllShortenedUrls = () => {
                     <tr>
                         <th className='text-left py-3 px-4 uppercase font-semibold text-sm'>Original URL</th>
                         <th className='text-left py-3 px-4 uppercase font-semibold text-sm'>Shortened URL</th>
-                        <th className='text-left py-3 px-4 uppercase font-semibold text-sm'>Clicks</th>
                         <th className='text-left py-3 px-4 uppercase font-semibold text-sm'>Created At</th>
                         <th className='text-left py-3 px-4 uppercase font-semibold text-sm'>Expires At</th>
                     </tr>
@@ -68,11 +69,13 @@ const AllShortenedUrls = () => {
                     <tbody className='text-gray-700'>
                     {shortenedUrls.map((url) => (
                         <tr key={url.id}>
-                            <td className='text-left py-3 px-4'>{url.originalUrl}</td>
+                            <td className='text-left py-3 px-4'>{url.alongUrl}</td>
                             <td className='text-left py-3 px-4'>
-                                <Link to={url.shortenedUrl}>{url.shortenedUrl}</Link>
+                                <Link
+                                    to={`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}>
+                                    {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}
+                                </Link>
                             </td>
-                            <td className='text-left py-3 px-4'>{url.clicks}</td>
                             <td className='text-left py-3 px-4'>{formatDate(url.createdAt)}</td>
                             <td className='text-left py-3 px-4'>{formatDate(url.expiresAt)}</td>
                         </tr>
