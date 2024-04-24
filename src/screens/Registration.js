@@ -2,14 +2,31 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {  evaluatePasswordStrength, isPasswordStrongEnough } from '../components/helper.js'; 
 function Registration() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
+    const [passwordStrength, setPasswordStrength] = useState('');
+    const [strengthColor, setStrengthColor] = useState('');
+
+
+    const handlePasswordChange = (newPassword) => {
+        setPassword(newPassword);
+        const { passwordStrength, strengthColor } = evaluatePasswordStrength(newPassword);
+        setPasswordStrength(passwordStrength);
+        setStrengthColor(strengthColor);
+    };
+    
     const handleRegistration = async (e) => {
         e.preventDefault();
+
+        if (!isPasswordStrongEnough(password)) {
+            alert('Please use a medium or strong password.');
+            return;
+        }
         try {
             const response = await fetch('http://localhost:8080/api/register', {
                 method: 'POST',
@@ -54,12 +71,13 @@ function Registration() {
                     <div className='flex-column mt-10'>
                         <div className='text-[#5f6bcb] mb-2 font-bold text-xl'>Password</div>
                         <div className='flex items-center border-[#cfd0db] border-2 w-80 rounded-lg bg-[#e7e9f9]'>
-                            <input
+                        <input
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => handlePasswordChange(e.target.value)}
                                 className='flex-grow p-2 bg-transparent outline-none'
                             />
+                           
                             <button 
                                 type='button'
                                 onClick={() => setShowPassword(!showPassword)}
@@ -67,6 +85,12 @@ function Registration() {
                             >
                                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                             </button>
+                        </div>
+                        <div style={{ width: '100%', backgroundColor: '#e7e9f9', height: '5px', borderRadius: '5px', marginTop: '5px' }}>
+                            <div style={{ width: `${passwordStrength === 'Weak' ? '33%' : passwordStrength === 'Medium' ? '66%' : passwordStrength === 'Strong' ? '100%' : '0%'}`, backgroundColor: strengthColor, height: '5px', borderRadius: '5px' }}></div>
+                        </div>
+                        <div className='text-sm mt-2' style={{ color: strengthColor }}>
+                            {passwordStrength}
                         </div>
                     </div>
 
