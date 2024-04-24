@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import WithCommonButtons from '../components/WithCommonButtons';
 import Cookies from "js-cookie";
+import { isLoggedIn } from '../components/auth';  
 
 function Shorten() {
     const [longUrl, setLongUrl] = useState('');
@@ -98,29 +99,31 @@ function Shorten() {
                     )}
                 </div>
 
-                <div className='flex gap-4 mb-4 w-full'>
+                <div className='flex gap-4 mb-4 w-1/4'>
                     <button
                         onClick={handleSave}
                         className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400 flex-grow'
                     >
                         Save
                     </button>
-                    <button
+                    {/* <button
                         className='text-white bg-[#4e60ff] h-14 rounded-lg px-4 shadow-xl shadow-slate-400 flex-grow'
                     >
                         Add to List
-                    </button>
+                    </button> */}
                 </div>
 
-                <div className='w-full md:w-auto'>
-                    <Link to="/all-urls">
-                        <button
-                            className='text-white bg-[#4e60ff] h-14 rounded-lg px-10 md:px-4 shadow-xl shadow-slate-400'
-                        >
-                            All Shortened URLs
-                        </button>
-                    </Link>
-                </div>
+                {isLoggedIn() !== 'guest' && (
+                    <div className='w-full md:w-auto'>
+                        <Link to="/all-urls">
+                            <button
+                                className='text-white bg-[#4e60ff] h-14 rounded-lg px-10 md:px-4 shadow-xl shadow-slate-400'
+                            >
+                                All Shortened URLs
+                            </button>
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );
