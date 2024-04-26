@@ -48,6 +48,30 @@ const AllShortenedUrls = () => {
 
     return (
         <div className='container mx-auto p-4'>
+            <style>
+            {`
+                .url-hover:hover {
+                    color: #3498db; 
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+                .fixed-width {
+                    max-width: 250px; 
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    word-break: break-all; 
+                }
+                .fixed-width:hover {
+                    white-space: normal; 
+                }
+                table {
+                    table-layout: fixed;
+                }
+                td {
+                    word-break: break-word; 
+                }
+            `}
+            </style>
             <h1 className='text-2xl font-bold mb-4'>All Shortened URLs</h1>
             <div className='flex justify-between items-center mb-4'>
                 <button
@@ -67,14 +91,26 @@ const AllShortenedUrls = () => {
                     </tr>
                     </thead>
                     <tbody className='text-gray-700'>
-                    {shortenedUrls.map((url) => (
-                        <tr key={url.id}>
-                            <td className='text-left py-3 px-4'>{url.longUrl}</td>
-                            <td className='text-left py-3 px-4'>
-                                <Link
-                                    to={`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}>
-                                    {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}
-                                </Link>
+                {shortenedUrls.map((url) => (
+                    <tr key={url.id}>
+                        <td className='text-left py-3 px-4 fixed-width url-hover'>                            <a
+                                href={url.longUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="url-hover"
+                            >
+                                {url.longUrl}
+                            </a>
+                        </td>
+                        <td className='text-left py-3 px-4'>
+                            <a
+                                href={`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="url-hover"
+                            >
+                                {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${url.shortUrlKey}`}
+                            </a>
                             </td>
                             <td className='text-left py-3 px-4'>{formatDate(url.expirationDateTime)}</td>
                         </tr>
