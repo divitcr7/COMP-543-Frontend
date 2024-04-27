@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import Cookies from "js-cookie";
+import { GoogleLogin } from '@react-oauth/google';
 
 // import * as path from "path";
 
@@ -75,6 +76,16 @@ function Signin() {
         }
     };
 
+    const handleGoogleSuccess = (res) => {
+        console.log(res);
+        navigate('/home');
+    };
+
+    const handleGoogleFailure = (error) => {
+        console.error('Google Sign In was unsuccessful: ', error);
+        alert('Google Sign In was unsuccessful');
+    };
+
     return (
         <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center items-center'>
             <div className='flex-column'>
@@ -127,7 +138,11 @@ function Signin() {
                 </form>
 
                 <div className='my-10'>
-                    <button className='text-white rounded-lg bg-red-500 p-2 w-80 h-10'>Login - Google</button>
+                    <GoogleLogin
+                      onSuccess={handleGoogleSuccess}
+                      onError={handleGoogleFailure}
+                      useOneTap
+                    />
                 </div>
 
                 <div className='flex justify-center font-semibold mt-1'>
