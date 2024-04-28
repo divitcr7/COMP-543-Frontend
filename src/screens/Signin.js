@@ -63,9 +63,13 @@ function Signin() {
 
     return (
         <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center items-center'>
+
             <div className='flex-column'>
+                <div className='font-bold mb-20 items-center w-80 text-center text-4xl text-[#5f6bcb]'>
+                    Shortly
+                </div>
                 <div className='font-bold mb-20 items-center w-80 text-center text-2xl'>
-                    SignIn
+                    Login
                 </div>
 
                 <form onSubmit={handleLogin}>
@@ -75,7 +79,7 @@ function Signin() {
                             type='text'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className='bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 w-80 h-10'
+                            className='p-2 bg-[#e7e9f9] rounded-lg border-[#cfd0db] border-2 w-80 h-10'
                         />
                     </div>
 
