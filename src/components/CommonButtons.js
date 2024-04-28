@@ -71,7 +71,7 @@ const CommonButtons = ({ children }) => {
                         cursor: 'pointer',
                         marginRight: '10px',
                     }}>
-                        Profile
+                        Change Password
                     </button>
                     <button onClick={handleLogout} style={{
                         backgroundColor: '#4e60ff',
