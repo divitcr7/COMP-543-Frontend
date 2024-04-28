@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rice-comp-539-spring-2022",
+  "private_key_id": "c6212f33751578c581ceafb875639c05896e8a03",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCyxG78IoOwjXUP\ndWzVWhoB31af8uFYFxqgEKMTBIYy4zfQpA8UtLA9JDiTtgwdJZOndXRuikfSlMd8\nA5ES5mGZ3C145AQsBoMmdmdEBJdef6rpwJjDVQpC8yKinSz8Nd3vfBUOrCbVZwhx\nuvXePEduv6noiSW1LtfQKBZXCbuuK8lA5jzkXoYFHsLV0iI8BGpPbjUE5yG9Xomg\njUnL84iLwZVHcq3Gf7T6Fa53DxWg0mF0sPo0wPzaaZfoVD57mGyu4VCi/6x0yWIn\neJSJwoV7plezYLCT45+/4QQLIypE5B2BKzfk01j6nS/9RQISaoETXaTagrRUk7i/\n9Dn2w0DlAgMBAAECggEAATclvPlS461a9NB5/XqfB+imMIvJdehj/WztAXAzYjhY\noYn9slz5ZVsg8452QIR6rQuipx/aMLympAivOgiC9IZsfjI8/d2H/vOvxA1A/gAD\nXmpvOmdIPnkggPJShOx2uo+u/Pe1MjMVB0y2o6bNeikTOleCr0eDnxCvISWgh+Fz\nvLpqewUxxRFh4ZyHw7PXYKzHg1u+V2jWEaaJPk+L9ZwI1atOhBwhsMoI2AH59yTW\nhdpbAhsceVMjDR1bXisVzSmr0ex5CyOw++jTH+ECWb0sPEcZaQysqP5zBbHsAetI\nlguqO47Owr1MjUAVLMOIkTNv+fUE8q9esFN2+F9LCQKBgQDaSJExb6+PhMpyBV8X\noG3r8Ft11IGi5HxqV8RQjA2maxQteLoxN4xplx3WnGvWcYrEgoCCeAn6bu8JVEqB\n+Y+pbkJ+dUKdVVM3dGL3Md8fXe0O2Ye3URSQRlJqlKSuNsSewnVUPq9qKiOtEbMw\nDnQqiGRalsCVO42sS5zIjq041wKBgQDRp+40TKcheIf2UE25At4VNRKEkWfYWzNH\npTWfE0uxUtEDZ3cgD6L5dIsidWlTOWbUTx84g+srqB553xkAdGiTdDVEl6W0FehG\n3o51corZcIyL0AJWfegk1RY9k1fzOeR7QocKf5+bb0DjfTJyCR6ENF4nqB9mz+fO\nlF3lIfZwowKBgEwbNRRpfmqpv/QVT1xrgSfcO+dPWouy4nYpd7clvbSibPyVtUVn\nursuBydGjorMN7fgUHIs7D224/z6uKesnZxTZze0Jq+4ijUxjTfm2YaUNw0QZzNR\nP7w16JJklS5wxgkcf9AJsxtu6dVz8Gf3AiW6PFMhcLAXfYPvMRD0Pg0tAoGBAMZv\n2egqfS4S9S1PyKDKdAVCnGpZbh68A4dWebA9BTGrHyXHslroMetGQcK1uqEI/akJ\n0pUdV2OU1nOnk/R4OdsG7LwlhLM04Qri75d+eKlh+8UBdpUCyszB2zEg2ufd7cI0\nr7hiH2FxJcur3ilNNFMRdeS3HjGjqtY+W7jaMnVdAoGAJKz8KuVBT7iEi+AHarwM\n6Fqx7BxCNdeCVIA+n5rMxzOd1asOdzOfW6oRHHqVHEyD9uXIQDhMN6Ubc09bp74d\nQopG9OGtoYUHvLbNXVfvoIu7fsWoIrYl7Hrb7Ae7MzZU0guRs0C/9MMRh6LS0LTf\njZSC7LZp6ogEthCrVZwCs1U=\n-----END PRIVATE KEY-----\n",
+  "client_email": "team4-244@rice-comp-539-spring-2022.iam.gserviceaccount.com",
+  "client_id": "109678002460547648757",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/team4-244%40rice-comp-539-spring-2022.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

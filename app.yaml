@@ -1,4 +1,5 @@
 runtime: nodejs18
+service: shortly-team4-frontend
 
 handlers:
   - url: /(.*\.(gif|png|jpg|css|js|ico|json|txt))$
