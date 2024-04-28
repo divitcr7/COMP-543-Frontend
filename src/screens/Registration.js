@@ -12,6 +12,7 @@ function Registration() {
     const [passwordStrength, setPasswordStrength] = useState('');
     const [strengthColor, setStrengthColor] = useState('');
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
 
     const handlePasswordChange = (newPassword) => {
         setPassword(newPassword);
@@ -28,7 +29,7 @@ function Registration() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:8080/api/register', {
+            const response = await fetch(`${apiBaseUrl}/api/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

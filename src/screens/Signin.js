@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import Cookies from "js-cookie";
-import { GoogleLogin } from '@react-oauth/google';
 
 // import * as path from "path";
 
@@ -13,9 +11,11 @@ function Signin() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
+
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8080/api/login', {
+        const response = await fetch(`${apiBaseUrl}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +26,8 @@ function Signin() {
 
         if (response.ok) {
             // Login successful, redirect to the home page
-            console.log("login success cookie", Cookies.get("user"))
+            localStorage.setItem('user', email);
+            console.log("login success localStorage", localStorage.getItem('user'))
             navigate('/home');
         } else {
             // Login failed, show an alert
@@ -38,7 +39,7 @@ function Signin() {
         const guestEmail = 'guest';
         const guestPassword = Math.random().toString(36).slice(-8); // generate a random password
 
-        const response = await fetch('http://localhost:8080/api/login', {
+        const response = await fetch(`${apiBaseUrl}/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,40 +52,14 @@ function Signin() {
 
         if (response.ok) {
             // Login successful, redirect to the home page
-            console.log("guest login cookie", Cookies.get("user"))
+            localStorage.setItem('user', 'guest');
+            console.log("login success localStorage", localStorage.getItem('user'))
             navigate('/home');
         } else {
             // Login failed, show an alert
             alert('Invalid login credentials');
         }
     }
-
-    const handleLogout = async () => {
-        const response = await fetch('/logout', {
-            method: 'POST',
-        });
-        if (response.ok) {
-            // Delete the session ID cookie
-            document.cookie = 'SESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            localStorage.removeItem('isAuthenticated');
-            localStorage.removeItem('userId');
-            // Handle logout success, redirect to the login page
-            navigate('/');
-        } else {
-            // Handle logout failure
-            alert('Logout failed')
-        }
-    };
-
-    const handleGoogleSuccess = (res) => {
-        console.log(res);
-        navigate('/home');
-    };
-
-    const handleGoogleFailure = (error) => {
-        console.error('Google Sign In was unsuccessful: ', error);
-        alert('Google Sign In was unsuccessful');
-    };
 
     return (
         <div className='bg-[#e7e9f9] h-screen w-screen flex justify-center items-center'>
@@ -136,14 +111,6 @@ function Signin() {
                         </button>
                     </div>
                 </form>
-
-                <div className='my-10'>
-                    <GoogleLogin
-                      onSuccess={handleGoogleSuccess}
-                      onError={handleGoogleFailure}
-                      useOneTap
-                    />
-                </div>
 
                 <div className='flex justify-center font-semibold mt-1'>
                     <Link to='/registration'>Register</Link>

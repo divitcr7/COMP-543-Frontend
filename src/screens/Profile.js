@@ -16,6 +16,7 @@ function ChangePassword() {
     const passwordRules = getPasswordRules(); // Retrieve password rules
 
     const navigate = useNavigate();
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
 
     const handlePasswordChange = (newPassword) => {
         setPassword(newPassword);
@@ -42,7 +43,7 @@ function ChangePassword() {
         }
 
         try {
-            const response = await fetch('http://your-backend-endpoint/api/change-password', {
+            const response = await fetch(`${apiBaseUrl}/api/change-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

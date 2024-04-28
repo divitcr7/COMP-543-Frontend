@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import {Routes, Route} from 'react-router-dom';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteList from './components/ProtectedRouteList';
 
@@ -17,42 +17,40 @@ const clientId = "904917579142-329of151mbh1tj4qh018ukhdd87jn6i5.apps.googleuserc
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <Routes>
-        <Route path="/" element={<Signin />} />
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/shorten" element={
-          <ProtectedRoute>
-            <Shorten />
-          </ProtectedRoute>
-        } />
-        <Route path="/home" element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        } />
-        <Route path="/shortened" element={
-          <ProtectedRoute>
-            <Shortened />
-          </ProtectedRoute>
-        } />
-        <Route path="/account" element={
-          <ProtectedRoute>
-            <Account />
-          </ProtectedRoute>
-        } />
-        <Route path="/all-urls" element={
-          <ProtectedRouteList>
-            <AllShortenedURLs />
-          </ProtectedRouteList>
-        } />
-        <Route path="/profile" element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        } />
-      </Routes>
-    </GoogleOAuthProvider>
+    <Routes>
+      <Route path="/" element={<Signin/>}/>
+      <Route path="/registration" element={<Registration/>}/>
+      <Route path="/shorten" element={
+        <ProtectedRoute>
+          <Shorten/>
+        </ProtectedRoute>
+      }/>
+      <Route path="/home" element={
+        <ProtectedRoute>
+          <Home/>
+        </ProtectedRoute>
+      }/>
+      <Route path="/shortened" element={
+        <ProtectedRoute>
+          <Shortened/>
+        </ProtectedRoute>
+      }/>
+      <Route path="/account" element={
+        <ProtectedRoute>
+          <Account/>
+        </ProtectedRoute>
+      }/>
+      <Route path="/all-urls" element={
+        <ProtectedRoute>
+          <AllShortenedURLs/>
+        </ProtectedRoute>
+      }/>
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <Profile/>
+        </ProtectedRoute>
+      }/>
+    </Routes>
   );
 }
 

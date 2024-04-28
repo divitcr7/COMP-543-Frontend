@@ -11,6 +11,8 @@ function Shorten() {
     const [saveMessage, setSaveMessage] = useState('');
     const navigate = useNavigate();
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
+
     const handleShorten = async () => {
         if (!longUrl.trim()) {
             setErrorMessage('Please enter a URL to shorten.');
@@ -20,7 +22,7 @@ function Shorten() {
         setErrorMessage('');
         setSaveMessage('');
 
-        const response = await fetch('http://localhost:8080/api/shorten', {
+        const response = await fetch(`${apiBaseUrl}/api/shorten`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,8 +49,8 @@ function Shorten() {
             return;
         }
 
-        const userId = Cookies.get('user');
-        const response = await fetch('http://localhost:8080/api/save', {
+        const userId = localStorage.getItem('user');
+        const response = await fetch(`${apiBaseUrl}/api/save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +115,7 @@ function Shorten() {
                     </button> */}
                 </div>
 
-                {isLoggedIn() !== 'guest' && (
+                {localStorage.getItem('user') !== 'guest' && (
                     <div className='w-full md:w-auto'>
                         <Link to="/all-urls">
                             <button

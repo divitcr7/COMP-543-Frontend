@@ -2,19 +2,19 @@ import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import WithCommonButtons from '../components/WithCommonButtons';
 import {useState} from 'react';
-import Cookies from "js-cookie";
 
 
 const AllShortenedUrls = () => {
 
     const [shortenedUrls, setShortenedUrls] = useState([]);
     const googleAnalyticsUrl = 'https://analytics.google.com/analytics/web/#/report-home/a212059432w164773516p165732017';
-    const user = Cookies.get('user');
+    const user = localStorage.getItem('user');
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         // Function to fetch URLs
         const fetchUrls = async () => {
-            const response = await fetch(`http://localhost:8080/api/fetchUrls/${user}`, {
+            const response = await fetch(`${apiBaseUrl}/api/fetchUrls/${user}`, {
                 method: 'GET', // Assuming GET is the method required
                 headers: {
                     'Content-Type': 'application/json',

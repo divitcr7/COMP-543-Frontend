@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import Cookies from "js-cookie";
 
 const CommonButtons = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const apiBaseUrl = process.env.REACT_APP_API_URL;
 
     const goBack = () => {
         navigate('/home'); 
@@ -16,7 +16,7 @@ const CommonButtons = ({ children }) => {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/logout', {
+            const response = await fetch(`${apiBaseUrl}/api/logout`, {
                 method: 'POST',
                 credentials: 'include',  // Ensure cookies are sent
             });
@@ -24,8 +24,8 @@ const CommonButtons = ({ children }) => {
             if (response.ok) {
                 // Assume the server has successfully ended the session
                 // Now clear the client-side state
-                Cookies.remove('user'); // Adjust this depending on the actual cookie you need to remove
-                console.log("logout cookie:", Cookies.get("user"));
+                localStorage.removeItem('user'); // Adjust this depending on the actual storage you use
+                console.log("logout localStorage:", localStorage.getItem('user'));
                 navigate('/'); // Redirect to login page or wherever appropriate
             } else {
                 throw new Error('Failed to logout');

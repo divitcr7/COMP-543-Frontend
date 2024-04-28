@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie';
 
-export function isLoggedIn() {
-    const userEmail = Cookies.get('user');
-    console.log("auth.js Cookie:", userEmail)
-    return userEmail;
-}
+export const isLoggedIn = () => {
+    const user = localStorage.getItem('user');
+    return Boolean(user);
+};
