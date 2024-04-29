@@ -92,12 +92,18 @@ function Shorten() {
 
                 <div className='w-full mb-4'>
                     {shortUrl && (
-                        <div className='text-center text-lg font-semibold'>
-                            Shortened URL:
-                            <span className='text-blue-600 break-words'>
-                                {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${shortUrl}`}
-                            </span>
-                        </div>
+                    <>
+                       <div className='text-center text-lg font-semibold'>
+                           Shortened URL:
+                           <span className='text-blue-600 break-words'>
+                               {`https://shortly-team4-backend-dot-rice-comp-539-spring-2022.uk.r.appspot.com/${shortUrl}`}
+                           </span>
+                       </div>
+                       <div className='text-center text-sm text-red-500'>
+                           Remember: The shortened URL will not work until you click "Save"
+                       </div>
+                    </>
+                        
                     )}
                 </div>
 
