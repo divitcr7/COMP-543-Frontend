@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import {  evaluatePasswordStrength, isPasswordStrongEnough } from '../components/helper.js'; 
+import {isEmailValid, evaluatePasswordStrength, isPasswordStrongEnough, getPasswordRules} from '../components/helper.js';
 function Registration() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -11,8 +11,10 @@ function Registration() {
 
     const [passwordStrength, setPasswordStrength] = useState('');
     const [strengthColor, setStrengthColor] = useState('');
+    const passwordRules = getPasswordRules(); // Retrieve password rules
 
     const apiBaseUrl = process.env.REACT_APP_API_URL;
+
 
     const handlePasswordChange = (newPassword) => {
         setPassword(newPassword);
@@ -24,8 +26,13 @@ function Registration() {
     const handleRegistration = async (e) => {
         e.preventDefault();
 
+        if (!isEmailValid(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+
         if (!isPasswordStrongEnough(password)) {
-            alert('Please use a medium or strong password.');
+            alert('Please use a strong password.');
             return;
         }
         try {
@@ -60,7 +67,6 @@ function Registration() {
                 <div className='font-bold mb-20 items-center w-80 text-center text-2xl text-[#ff5c60]'>
                     Registration
                 </div>
-
                 <form onSubmit={handleRegistration}>
                     <div className='flex-column'>
                         <div className='text-[#5f6bcb] mb-2 font-bold text-xl'>Email</div>
@@ -90,6 +96,8 @@ function Registration() {
                                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                             </button>
                         </div>
+                        <div className='w-80 text-xs mt-1 text-gray-600'>{passwordRules}</div>
+
                         <div style={{ width: '100%', backgroundColor: '#e7e9f9', height: '5px', borderRadius: '5px', marginTop: '5px' }}>
                             <div style={{ width: `${passwordStrength === 'Weak' ? '33%' : passwordStrength === 'Medium' ? '66%' : passwordStrength === 'Strong' ? '100%' : '0%'}`, backgroundColor: strengthColor, height: '5px', borderRadius: '5px' }}></div>
                         </div>
@@ -104,9 +112,9 @@ function Registration() {
                     </div>
                 </form>
 
-                <div>
+                {/* <div>
                     <button className='text-white rounded-lg bg-red-500 p-2 w-80 h-10'>Login - Google</button>
-                </div>
+                </div> */}
                 <div className='flex justify-center font-semibold mt-1'>
                     <Link to='/'> Back to Login</Link>
                 </div>

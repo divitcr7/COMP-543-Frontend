@@ -1,3 +1,8 @@
+export function isEmailValid(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+}
+
 export const evaluatePasswordStrength = (password) => {
     let strength = 0;
     const minLength = 6;
@@ -43,7 +48,7 @@ export const evaluatePasswordStrength = (password) => {
 
 export const isPasswordStrongEnough = (password) => {
     const { passwordStrength } = evaluatePasswordStrength(password);
-    return passwordStrength === 'Medium' || passwordStrength === 'Strong' || passwordStrength === 'Very Strong';
+    return passwordStrength === 'Strong' || passwordStrength === 'Very Strong';
 };
 
 export const getPasswordRules = () => {

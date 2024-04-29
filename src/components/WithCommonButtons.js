@@ -1,5 +1,5 @@
 import React from 'react';
-import CommonButtons from './CommonButtons'; // Use the same Layout component from Option 1
+import CommonButtons from './CommonButtons';
 
 const WithCommonButtons = (WrappedComponent) => {
     return props => (

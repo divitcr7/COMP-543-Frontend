@@ -62,17 +62,19 @@ const CommonButtons = ({ children }) => {
                 )}
                 <div style={{ fontSize: '24px', color: '#5f6bcb' }}>Shortly</div>
                 <div>
-                    <button onClick={navigateToProfile} style={{
-                        backgroundColor: '#4e60ff',
-                        color: 'white',
-                        padding: '8px 16px',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        marginRight: '10px',
-                    }}>
-                        Change Password
-                    </button>
+                    {localStorage.getItem('user') !== 'guest' && (
+                        <button onClick={navigateToProfile} style={{
+                            backgroundColor: '#4e60ff',
+                            color: 'white',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            cursor: 'pointer',
+                            marginRight: '10px',
+                        }}>
+                            Change Password
+                        </button>
+                    )}
                     <button onClick={handleLogout} style={{
                         backgroundColor: '#4e60ff',
                         color: 'white',

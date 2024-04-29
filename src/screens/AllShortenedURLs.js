@@ -73,14 +73,14 @@ const AllShortenedUrls = () => {
             `}
             </style>
             <h1 className='text-2xl font-bold mb-4'>All Shortened URLs</h1>
-            <div className='flex justify-between items-center mb-4'>
+            {/* <div className='flex justify-between items-center mb-4'>
                 <button
                     onClick={() => window.open(googleAnalyticsUrl, '_blank')}
                     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                 >
                     View in Google Analytics
                 </button>
-            </div>
+            </div> */}
             <div className='overflow-x-auto'>
                 <table className='min-w-full bg-white'>
                     <thead className='bg-blue-500 text-white'>

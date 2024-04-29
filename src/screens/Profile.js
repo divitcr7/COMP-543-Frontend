@@ -40,7 +40,7 @@ function ChangePassword() {
       return;
     }
     if (!isPasswordStrongEnough(password)) {
-      setErrorMessage('Please use a medium or strong password.');
+      setErrorMessage('Please use a strong password.');
       return;
     }
 
